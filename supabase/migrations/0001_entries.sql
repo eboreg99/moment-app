@@ -23,6 +23,8 @@ create trigger entries_set_updated_at
   before update on public.entries
   for each row execute function public.set_updated_at();
 
+grant select, insert, update, delete on table public.entries to authenticated;
+
 -- Jeder sieht und ändert nur seine eigenen Einträge
 alter table public.entries enable row level security;
 

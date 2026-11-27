@@ -15,7 +15,7 @@ npm run dev
 ## Supabase einrichten
 
 1. Projekt anlegen (Region eu-central-1).
-2. Im SQL-Editor `supabase/migrations/0001_entries.sql` ausführen.
+2. Im SQL-Editor die Dateien in `supabase/migrations/` der Reihe nach ausführen.
 3. Google-Login: In der Google Cloud Console einen OAuth-Client (Typ „Webanwendung“) anlegen,
    als Redirect-URI `https://<projekt-id>.supabase.co/auth/v1/callback` eintragen.
    Client-ID und Secret unter Supabase > Authentication > Providers > Google einfügen.
