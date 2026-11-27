@@ -24,8 +24,7 @@ npm run dev
 ## Deployment
 
 Jeder Push auf `main` baut die App und veröffentlicht sie auf GitHub Pages: https://eboreg99.github.io/moment-app/
-Die Supabase-Werte kommen aus den Repository-Variablen `VITE_SUPABASE_URL` und `VITE_SUPABASE_ANON_KEY`
-(Settings > Secrets and variables > Actions > Variables).
+Die öffentlichen Supabase-Werte stehen in `.env.production`.
 
 ## Plan
 
