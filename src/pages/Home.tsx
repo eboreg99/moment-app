@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import type { Session } from '@supabase/supabase-js'
 import { EntryRow } from '../components/EntryRow'
+import { ReminderToggle } from '../components/ReminderToggle'
 import { addDays, formatLong, lookbacks, today } from '../lib/dates'
 import { getEntriesBetween, getEntriesByDates } from '../lib/entries'
 import { supabase } from '../lib/supabase'
@@ -67,6 +68,10 @@ export function Home({ session }: { session: Session }) {
       <section>
         <h2>Letzte 10 Tage</h2>
         {!loading && history.map((d) => <EntryRow key={d} date={d} entry={recentMap.get(d)} />)}
+      </section>
+
+      <section className="card">
+        <ReminderToggle />
       </section>
     </main>
   )

@@ -21,6 +21,17 @@ npm run dev
    Client-ID und Secret unter Supabase > Authentication > Providers > Google einfügen.
 4. Unter Authentication > URL Configuration die App-URL (lokal `http://localhost:5173`, produktiv `https://eboreg99.github.io/moment-app/`) eintragen.
 
+## Erinnerungen einrichten
+
+1. Im SQL-Editor `supabase/migrations/0003_push_subscriptions.sql` ausführen.
+2. Edge Functions > Deploy a new function > Via Editor: Name `send-reminders`, Inhalt von
+   `supabase/functions/send-reminders/index.ts` einfügen und deployen.
+   In den Einstellungen der Funktion **Verify JWT** ausschalten (die Funktion prüft stattdessen `CRON_SECRET`).
+3. Edge Functions > Secrets: `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT` (`mailto:…`), `CRON_SECRET` anlegen.
+   Der öffentliche VAPID-Key steht zusätzlich als `VITE_VAPID_PUBLIC_KEY` in `.env.production`.
+4. `supabase/cron_send_reminders.sql` mit eingesetztem `CRON_SECRET` ausführen (stündlicher Aufruf per pg_cron).
+5. In der App unten auf „Erinnerungen > Einschalten“ tippen.
+
 ## Deployment
 
 Jeder Push auf `main` baut die App und veröffentlicht sie auf GitHub Pages: https://eboreg99.github.io/moment-app/
