@@ -19,7 +19,13 @@ npm run dev
 3. Google-Login: In der Google Cloud Console einen OAuth-Client (Typ „Webanwendung“) anlegen,
    als Redirect-URI `https://<projekt-id>.supabase.co/auth/v1/callback` eintragen.
    Client-ID und Secret unter Supabase > Authentication > Providers > Google einfügen.
-4. Unter Authentication > URL Configuration die App-URL (lokal `http://localhost:5173`, später die Produktiv-URL) eintragen.
+4. Unter Authentication > URL Configuration die App-URL (lokal `http://localhost:5173`, produktiv `https://eboreg99.github.io/moment-app/`) eintragen.
+
+## Deployment
+
+Jeder Push auf `main` baut die App und veröffentlicht sie auf GitHub Pages: https://eboreg99.github.io/moment-app/
+Die Supabase-Werte kommen aus den Repository-Variablen `VITE_SUPABASE_URL` und `VITE_SUPABASE_ANON_KEY`
+(Settings > Secrets and variables > Actions > Variables).
 
 ## Plan
 
