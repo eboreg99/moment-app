@@ -16,3 +16,7 @@ export interface Entry {
   created_at: string
   updated_at: string
 }
+
+export function moodEmoji(mood: Mood | number | undefined): string {
+  return MOODS.find((m) => m.value === mood)?.emoji ?? '—'
+}

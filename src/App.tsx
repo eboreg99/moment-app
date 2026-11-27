@@ -1,5 +1,7 @@
+import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { isConfigured } from './lib/supabase'
 import { useSession } from './lib/useSession'
+import { EntryEditor } from './pages/EntryEditor'
 import { Home } from './pages/Home'
 import { Login } from './pages/Login'
 
@@ -15,5 +17,15 @@ export default function App() {
     )
   }
   if (loading) return <main className="center">Lädt…</main>
-  return session ? <Home session={session} /> : <Login />
+  if (!session) return <Login />
+
+  return (
+    <HashRouter>
+      <Routes>
+        <Route path="/" element={<Home session={session} />} />
+        <Route path="/entry/:date" element={<EntryEditor />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </HashRouter>
+  )
 }

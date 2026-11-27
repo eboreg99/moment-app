@@ -18,3 +18,30 @@ main { max-width: 640px; margin: 0 auto; padding: 16px; }
 .bar { display: flex; align-items: center; justify-content: space-between; }
 button { font: inherit; padding: 10px 16px; border-radius: 10px; border: 1px solid var(--border); background: transparent; color: inherit; cursor: pointer; }
 button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+h1 { font-size: 1.5rem; margin: 8px 0; }
+h2 { font-size: 1.05rem; margin: 24px 0 8px; color: var(--muted); font-weight: 600; }
+a { color: inherit; text-decoration: none; }
+.muted { color: var(--muted); }
+.error { color: #dc2626; }
+.card { border: 1px solid var(--border); border-radius: 16px; padding: 16px; margin-top: 12px; }
+.today-entry { display: flex; align-items: center; gap: 12px; }
+.today-entry span:nth-child(2) { flex: 1; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.big-emoji { font-size: 2.5rem; }
+.button-link { display: block; text-align: center; padding: 14px; border-radius: 12px; background: var(--accent); color: #fff; font-weight: 600; }
+.row { display: flex; align-items: center; gap: 12px; padding: 10px 4px; border-bottom: 1px solid var(--border); }
+.row-emoji { font-size: 1.6rem; width: 2rem; text-align: center; color: var(--muted); }
+.row-body { display: flex; flex-direction: column; min-width: 0; }
+.row-date { font-size: 0.85rem; color: var(--muted); }
+.row-note { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.back { color: var(--accent); padding: 8px 0; }
+.field { display: flex; flex-direction: column; gap: 6px; margin: 16px 0; }
+.field > span { font-weight: 600; }
+input, textarea { font: inherit; padding: 10px; border-radius: 10px; border: 1px solid var(--border); background: transparent; color: inherit; }
+textarea { resize: vertical; }
+.moods { display: flex; gap: 8px; }
+.mood { flex: 1; font-size: 2rem; padding: 10px 0; }
+.mood.selected { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 15%, transparent); }
+.actions { display: flex; gap: 8px; justify-content: flex-end; }
+.actions button { flex: 1; }
+.danger-link { border: none; color: #dc2626; margin-top: 16px; padding: 8px 0; }
