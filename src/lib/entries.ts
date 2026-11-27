@@ -33,3 +33,18 @@ export async function deleteEntry(date: string): Promise<void> {
   const { error } = await supabase.from('entries').delete().eq('entry_date', date)
   if (error) throw error
 }
+
+/** Alle Einträge (seitenweise geladen, aufsteigend nach Datum) */
+export async function getAllEntries(): Promise<Entry[]> {
+  const pageSize = 1000
+  const all: Entry[] = []
+  for (let from = 0; ; from += pageSize) {
+    const { data, error } = await supabase
+      .from('entries').select('*')
+      .order('entry_date', { ascending: true })
+      .range(from, from + pageSize - 1)
+    if (error) throw error
+    all.push(...((data ?? []) as Entry[]))
+    if (!data || data.length < pageSize) return all
+  }
+}

@@ -38,7 +38,10 @@ export function Home({ session }: { session: Session }) {
     <main>
       <header className="bar">
         <h1>📔 Tagebuch</h1>
-        <button onClick={() => supabase.auth.signOut()}>Abmelden</button>
+        <div className="header-actions">
+          <Link to="/stats" className="header-link">📊 Statistik</Link>
+          <button onClick={() => supabase.auth.signOut()}>Abmelden</button>
+        </div>
       </header>
 
       {error && <p className="error">{error}</p>}

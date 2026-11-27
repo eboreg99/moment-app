@@ -4,6 +4,7 @@ import { useSession } from './lib/useSession'
 import { EntryEditor } from './pages/EntryEditor'
 import { Home } from './pages/Home'
 import { Login } from './pages/Login'
+import { Stats } from './pages/Stats'
 
 export default function App() {
   const { session, loading } = useSession()
@@ -24,6 +25,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home session={session} />} />
         <Route path="/entry/:date" element={<EntryEditor />} />
+        <Route path="/stats" element={<Stats />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </HashRouter>
