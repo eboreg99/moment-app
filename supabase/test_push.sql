@@ -3,7 +3,8 @@
 select net.http_post(
   url := 'https://zfgwgabzuyfqwxkkssha.supabase.co/functions/v1/send-reminders',
   headers := jsonb_build_object('Content-Type', 'application/json', 'x-cron-secret', '<CRON_SECRET>'),
-  body := '{"test": true}'::jsonb
+  body := '{"test": true}'::jsonb,
+  timeout_milliseconds := 30000
 );
 
 -- ein paar Sekunden warten, dann:
