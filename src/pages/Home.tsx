@@ -7,6 +7,7 @@ import { addDays, formatLong, lookbacks, today } from '../lib/dates'
 import { getEntriesBetween, getEntriesByDates } from '../lib/entries'
 import { supabase } from '../lib/supabase'
 import { moodEmoji, type Entry } from '../lib/types'
+import { Logo } from '../components/Logo'
 
 export function Home({ session }: { session: Session }) {
   const todayIso = today()
@@ -37,7 +38,7 @@ export function Home({ session }: { session: Session }) {
   return (
     <main>
       <header className="bar">
-        <h1>📔 Tagebuch</h1>
+        <h1 className="brand"><Logo /> Tagebuch</h1>
         <div className="header-actions">
           <Link to="/stats" className="header-link">📊 Statistik</Link>
           <button onClick={() => supabase.auth.signOut()}>Abmelden</button>

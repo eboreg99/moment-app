@@ -17,7 +17,7 @@ self.addEventListener('push', (event) => {
   event.waitUntil(
     self.registration.showNotification(data.title ?? 'Tagebuch', {
       body: data.body ?? '',
-      icon: 'favicon.svg',
+      icon: 'pwa-192x192.png',
       tag: 'tagebuch-reminder',
       data: { url: data.url ?? self.registration.scope },
     }),

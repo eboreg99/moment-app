@@ -5,6 +5,7 @@ import { EntryEditor } from './pages/EntryEditor'
 import { Home } from './pages/Home'
 import { Login } from './pages/Login'
 import { Stats } from './pages/Stats'
+import { Logo } from './components/Logo'
 
 export default function App() {
   const { session, loading } = useSession()
@@ -12,7 +13,7 @@ export default function App() {
   if (!isConfigured) {
     return (
       <main className="center">
-        <h1>📔 Tagebuch</h1>
+        <h1 className="brand"><Logo /> Tagebuch</h1>
         <p>Supabase ist noch nicht konfiguriert. Bitte <code>.env</code> anhand von <code>.env.example</code> anlegen.</p>
       </main>
     )
