@@ -23,14 +23,17 @@ npm run dev
 
 ## Erinnerungen einrichten
 
-1. Im SQL-Editor `supabase/migrations/0003_push_subscriptions.sql` ausführen.
-2. Edge Functions > Deploy a new function > Via Editor: Name `send-reminders`, Inhalt von
+1. Im SQL-Editor `supabase/migrations/0003_push_subscriptions.sql` und `0004_service_role_grants.sql` ausführen.
+2. Edge Functions > Deploy a new function > Via Editor: Name **genau** `send-reminders` (der Editor schlägt sonst einen Zufallsnamen vor), vorhandenen Beispielcode komplett ersetzen durch den Inhalt von
    `supabase/functions/send-reminders/index.ts` einfügen und deployen.
    In den Einstellungen der Funktion **Verify JWT** ausschalten (die Funktion prüft stattdessen `CRON_SECRET`).
 3. Edge Functions > Secrets: `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT` (`mailto:…`), `CRON_SECRET` anlegen.
    Der öffentliche VAPID-Key steht zusätzlich als `VITE_VAPID_PUBLIC_KEY` in `.env.production`.
 4. `supabase/cron_send_reminders.sql` mit eingesetztem `CRON_SECRET` ausführen (stündlicher Aufruf per pg_cron).
 5. In der App unten auf „Erinnerungen > Einschalten“ tippen.
+6. Test: `supabase/test_push.sql` ausführen, es sollte sofort eine Probe-Benachrichtigung ankommen.
+
+Fehlersuche: `select status_code, content from net._http_response order by created desc limit 5;`
 
 ## Deployment
 
