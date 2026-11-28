@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabase'
+import { Logo } from '../components/Logo'
 
 export function Login() {
   const signIn = () =>
@@ -9,7 +10,8 @@ export function Login() {
 
   return (
     <main className="center">
-      <h1>📔 Tagebuch</h1>
+      <Logo size={96} />
+      <h1>Tagebuch</h1>
       <p>Deine Stimmung, jeden Tag.</p>
       <button className="primary" onClick={signIn}>Mit Google anmelden</button>
     </main>
