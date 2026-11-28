@@ -50,6 +50,26 @@ Deno.serve(async (req) => {
   if (error) return new Response(error.message, { status: 500 })
 
   const results: Record<string, string> = {}
+  const body = await req.json().catch(() => ({})) as { test?: boolean }
+  console.log(`send-reminders: ${subs?.length ?? 0} subscription(s), test=${Boolean(body.test)}`)
+
+  // Testmodus: sofort eine Probe-Benachrichtigung an alle Geräte schicken
+  if (body.test) {
+    for (const sub of (subs ?? []) as Subscription[]) {
+      try {
+        const r = await webpush.sendNotification(
+          { endpoint: sub.endpoint, keys: { p256dh: sub.p256dh, auth: sub.auth } },
+          JSON.stringify({ title: 'Test 🔔', body: 'Push-Benachrichtigungen funktionieren.', url: APP_URL }),
+        )
+        results[sub.id] = `test: sent (${r.statusCode})`
+      } catch (e) {
+        const err = e as { statusCode?: number; body?: string; message?: string }
+        results[sub.id] = `test: error ${err.statusCode ?? ''} ${err.body ?? err.message ?? ''}`
+      }
+    }
+    console.log(JSON.stringify(results))
+    return new Response(JSON.stringify({ subscriptions: subs?.length ?? 0, results }), { headers: { 'Content-Type': 'application/json' } })
+  }
 
   for (const sub of (subs ?? []) as Subscription[]) {
     let tz = sub.timezone
@@ -65,7 +85,10 @@ Deno.serve(async (req) => {
       kind = 'morning'
       checkDate = yesterday
     }
-    if (!kind) continue
+    if (!kind) {
+      results[sub.id] = `nothing due (local ${date} ${hour}:00, ${tz})`
+      continue
+    }
 
     const { count } = await supabase
       .from('entries').select('id', { count: 'exact', head: true })
@@ -96,10 +119,12 @@ Deno.serve(async (req) => {
         await supabase.from('push_subscriptions').delete().eq('id', sub.id)
         results[sub.id] = `${kind}: subscription expired, removed`
       } else {
-        results[sub.id] = `${kind}: error ${status ?? ''} ${(e as Error).message}`
+        const err = e as { body?: string; message?: string }
+        results[sub.id] = `${kind}: error ${status ?? ''} ${err.body ?? err.message ?? ''}`
       }
     }
   }
 
-  return new Response(JSON.stringify(results), { headers: { 'Content-Type': 'application/json' } })
+  console.log(JSON.stringify(results))
+  return new Response(JSON.stringify({ subscriptions: subs?.length ?? 0, results }), { headers: { 'Content-Type': 'application/json' } })
 })
